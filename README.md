@@ -17,7 +17,7 @@ DATABASE_FILENAME=data.db
 JWT_SECRET=
 ```
 
-### `Install dependencies`
+### `install dependencies`
 
 ```
 yarn
@@ -53,6 +53,11 @@ Build your admin panel. [Learn more](https://docs.strapi.io/developer-docs/lates
 npm run build
 # or
 yarn build
+```
+
+### `run tests`
+```
+yarn test
 ```
 
 ## Run in Docker
