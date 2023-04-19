@@ -1,6 +1,29 @@
 # 🚀 Getting started with Strapi
 
-Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/developer-docs/latest/developer-resources/cli/CLI.html) (CLI) which lets you scaffold and manage your project in seconds.
+## Pre-Configuration
+
+`.env` file
+
+```
+HOST=0.0.0.0
+PORT=1337
+APP_KEYS=
+API_TOKEN_SALT=
+ADMIN_JWT_SECRET=
+TRANSFER_TOKEN_SALT=
+# Database
+DATABASE_CLIENT=sqlite
+DATABASE_FILENAME=data.db
+JWT_SECRET=
+```
+
+### `Install dependencies`
+
+```
+yarn
+# or
+yarn install
+```
 
 ### `develop`
 
@@ -30,6 +53,20 @@ Build your admin panel. [Learn more](https://docs.strapi.io/developer-docs/lates
 npm run build
 # or
 yarn build
+```
+
+## Run in Docker
+
+### `Build Docker Image`
+
+```
+docker build -t strapi-cicd-demo .
+```
+
+### `Run a docker container`
+
+```
+docker run -p 1337:1337 --env-file=.env strapi-cicd-demo
 ```
 
 ## ⚙️ Deployment
