@@ -16,6 +16,12 @@ jobs:
       matrix:
         node-version: [14.x, 16.x, 18.x]
     steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
     - name: 'Create env file'
       run: |
         touch .env
@@ -28,11 +34,6 @@ jobs:
         echo DATABASE_CLIENT=${{ secrets.DATABASE_CLIENT }} >> .env
         echo DATABASE_FILENAME=${{ secrets.DATABASE_FILENAME }} >> .env
         echo JWT_SECRET=${{ secrets.JWT_SECRET }} >> .env
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+        cat .env
     - run: npm install
     - run: npm run test
