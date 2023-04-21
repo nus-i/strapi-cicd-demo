@@ -14,13 +14,13 @@ jobs:
       uses: actions/checkout@v2
     
     - name: Build Docker Image
-      run: docker build -t my-strapi-image2 .
+      run: docker build -t my-strapi-image .
       
     - name: Tag Docker image
-      run: docker tag my-strapi-image2 adamsia/test-strapi:my-strapi-image2
+      run: docker tag my-strapi-image2 adamsia/test-strapi:my-strapi-image
       
     - name: Login to Docker Hub
-      run: docker login -u adamsia -p @Adam1971
+      run: docker login -u ${{ secrets.ADAMDOCKHERHUB_USERNAME }} -p ${{ secrets.ADAMDOCKERHUB_PASSWORD }}
     
     - name: Push Docker Image
-      run: docker push adamsia/test-strapi:my-strapi-image2
+      run: docker push adamsia/test-strapi:my-strapi-image
