@@ -1,0 +1,26 @@
+name: Docker Hub Push
+
+on:
+  push:
+    branches:
+      - test_docker
+
+jobs:
+  docker_hub_push:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Build Docker Image
+      run: docker build -t my-strapi-image . 
+      
+    - name: Tag Docker image
+      run: docker tag mthinzar/strapi-demo mthinzar/strapi-demo:strapi-image
+    
+    - name: Login to Docker Hub
+      run: docker login -u ${{ secrets.USERNAME }} -p ${{ secrets.HUB_pASSWORD }}
+
+    - name: Push Docker Image
+      run: docker push mthinzar/strapi-demo:strapi-image
