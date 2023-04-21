@@ -1,0 +1,23 @@
+name: Docker Hub Push
+
+on:
+  push:
+    branches:
+      - dev # Change to your desired branch name
+
+jobs:
+  docker_hub_push:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+    
+    - name: Build Docker Image
+      run: docker build -t my-strapi-image . # Replace 'my-strapi-image' with your desired image name
+    
+    - name: Log in to Docker Hub
+      run: docker login -u ${{ adamsia }} -p ${{ @Adam1971 }}
+    
+    - name: Push Docker Image
+      run: docker push my-strapi-image # Replace 'my-strapi-image' with your desired image name
