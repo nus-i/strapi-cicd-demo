@@ -17,11 +17,11 @@ async function setupStrapi() {
 
 async function cleanupStrapi() {
   const dbSettings = instance.config.get("db.connection");
-  //close server to release the db-file
+  // close server to release the db-file
   await instance.server.httpServer.close();
   // close the connection to the database before deletion
   await instance.db.connection.destroy();
-  //delete test database after all tests have completed
+  // delete test database after all tests have completed
   if (dbSettings && dbSettings.connection && dbSettings.connection.filename) {
     const tmpDbFile = dbSettings.connection.filename;
     if (fs.existsSync(tmpDbFile)) {
