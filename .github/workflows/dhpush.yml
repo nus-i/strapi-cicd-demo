@@ -12,7 +12,9 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
-    
+      with:
+        ref: dockerhub
+        
     - name: Build Docker Image
       run: docker build -t my-strapi-image:latest .
 
