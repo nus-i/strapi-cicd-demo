@@ -5,9 +5,9 @@ name: Deploy to Amazon ECS
 
 on:
   push:
-    branches: ["develop", "main", "cicd-fargate"]
+    branches: ["main", "cicd-fargate"]
   pull_request:
-    branches: ["develop", "main", "cicd-fargate"]
+    branches: ["main", "cicd-fargate"]
 
 env:
   AWS_REGION: us-west-2
