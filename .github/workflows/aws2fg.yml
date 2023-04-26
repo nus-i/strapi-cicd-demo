@@ -39,7 +39,7 @@ jobs:
 
         # Set up variables for Fargate deployment
         TASK_FAMILY="fg-ldr-demo-task"
-        CLUSTER_NAME="fg-ldr-demo"
+        CLUSTER_NAME="FG-LDR-DEMO"
         SERVICE_NAME="fg-ldr-demo-service"
         CONTAINER_NAME="strapi-app"
         IMAGE="adamsia/test-strapi:latest"
