@@ -35,7 +35,7 @@ jobs:
         # Install AWS CLI
         curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
         unzip awscliv2.zip
-        sudo ./aws/install
+        sudo ./aws/install --update
 
         # Set up variables for Fargate deployment
         TASK_FAMILY="fg-ldr-demo-task"
