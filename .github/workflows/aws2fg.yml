@@ -1,4 +1,4 @@
-name: Push to AWS Fargate
+name: Push to AWS-Fargate
 
 on:
   push:
