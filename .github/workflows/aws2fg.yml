@@ -1,0 +1,54 @@
+name: Push to AWS Fargate
+
+on:
+  push:
+    branches:
+      - dockerhub
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.ADAMDOCKHERHUB_USERNAME }} 
+        password: ${{ secrets.ADAMDOCKERHUB_PASSWORD }} 
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: adamsia/test-strapi:latest
+
+    - name: Deploy to AWS Fargate
+      env:
+        AWS_REGION: us-west-2
+        AWS_ACCESS_KEY_ID: ${{ secrets.ADAMAWSCLI_ID }} 
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.ADAMAWSCLI_KEY }} 
+      run: |
+        # Install AWS CLI
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        unzip awscliv2.zip
+        sudo ./aws/install --update
+
+        # Set up variables for Fargate deployment
+        TASK_FAMILY="fg-ldr-demo-task"
+        CLUSTER_NAME="fg-ldr-demo"
+        SERVICE_NAME="fg-ldr-demo-service"
+        CONTAINER_NAME="strapi-app"
+        IMAGE="adamsia/test-strapi:latest" 
+
+        # Update the task definition with the new Docker image
+        TASK_DEF=$(aws ecs register-task-definition --family $TASK_FAMILY --container-definitions "[{\"name\":\"$CONTAINER_NAME\",\"image\":\"$IMAGE\"}]" | jq '.taskDefinition.taskDefinitionArn' -r)
+
+        # Update the Fargate service with the new task definition
+        aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --task-definition $TASK_DEF
+
+        # Wait for the service to be stable
+        aws ecs wait services-stable --cluster $CLUSTER_NAME --services $SERVICE_NAME
