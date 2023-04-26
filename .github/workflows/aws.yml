@@ -5,14 +5,14 @@ name: Deploy to Amazon ECS
 
 on:
   push:
-    branches: ["main", "cicd-fargate"]
+    branches: ["fargate-lb"]
   pull_request:
-    branches: ["main", "cicd-fargate"]
+    branches: ["fargate-lb"]
 
 env:
   AWS_REGION: us-west-2
   ECR_REPOSITORY: my-ecr-repo
-  ECS_SERVICE: fargate-service
+  ECS_SERVICE: fargate-service-lb
   ECS_CLUSTER: default
   ECS_TASK_DEFINITION: .aws/task-def.json
   CONTAINER_NAME: strapi-cicd-demo
