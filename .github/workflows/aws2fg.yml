@@ -45,7 +45,7 @@ jobs:
         MEMORY=8
         CPU=512
         # Update the task definition with the new Docker image
-        TASK_DEF=$(aws ecs register-task-definition --family $TASK_FAMILY --container-definitions "[{\"name\":\"$CONTAINER_NAME\",\"image\":\"$IMAGE\",\"memory\":$MEMORY}]" --requiresCompatibilities "[{\"$FARGATE\"]" | jq '.taskDefinition.taskDefinitionArn' -r)
+        TASK_DEF=$(aws ecs register-task-definition --family $TASK_FAMILY --container-definitions "[{\"name\":\"$CONTAINER_NAME\",\"image\":\"$IMAGE\",\"memory\":$MEMORY}]" --requiresCompatibilities "[{\"FARGATE\"]" | jq '.taskDefinition.taskDefinitionArn' -r)
         echo "TASK_DEF" >> $GITHUB_OUTPUT
         
         # Update the Fargate service with the new task definition
