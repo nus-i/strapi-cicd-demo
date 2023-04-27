@@ -8,9 +8,9 @@ on:
 env:
   CONTAINER_NAME: strapi-app
   AWS_REGION: us-east-1
-  AWS_ACCESS_KEY_ID: ${{ secrets.ADAMAWSCLI_ID }} 
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.ADAMAWSCLI_KEY }}
-  ECS_TASK_DEFINITION: .aws/dhtaskdef.json
+  #AWS_ACCESS_KEY_ID: ${{ secrets.ADAMAWSCLI_ID }} 
+  #AWS_SECRET_ACCESS_KEY: ${{ secrets.ADAMAWSCLI_KEY }}
+  ECS_TASK_DEFINITION: .aws/dh_taskdef.json
   TASK_FAMILY: fg-ldr-demo-task
   CLUSTER_NAME: FG-LDR-DEMO
   SERVICE_NAME: fg-ldr-demo-svc
@@ -41,7 +41,7 @@ jobs:
       uses: aws-actions/configure-aws-credentials@v2
       with:
         aws-region: ${{ env.AWS_REGION }}
-        role-to-assume: arn:aws:iam::806292820880:role/EC2_Role
+        role-to-assume: arn:aws:iam::806292820880:role/fg-ldr-github
         role-session-name: GitHub_2_AWS_via_FederatedOIDC_forStrapi
         #mask-aws-account-id: false
 
