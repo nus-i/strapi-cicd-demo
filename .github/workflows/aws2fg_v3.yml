@@ -6,7 +6,7 @@ on:
       - dockerhub
       
 env:
-  ECS_TASK_DEFINITION: .aws/dhtaskdef.json
+  ECS_TASK_DEFINITION: .aws/task-def.json
   CONTAINER_NAME: strapi-app
 
 jobs:
