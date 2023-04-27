@@ -17,8 +17,8 @@ env:
   IMAGE: test-strapi:latest
   
 permissions:
-  id-token: write # This is required for requesting the JWT
-  contents: read  # This is required for actions/checkout
+  id-token: write 
+  contents: read
 
 jobs:
   build-and-deploy:
@@ -45,10 +45,9 @@ jobs:
       uses: aws-actions/configure-aws-credentials@v2
       with:
         aws-region: ${{ env.AWS_REGION }}
-        role-to-assume: arn:aws:iam::806292820880:role/fg-ldr-github
+        role-to-assume: arn:aws:iam::806292820880:role/GitHubAction-AssumeRoleWithActionLDR
         role-session-name: GitHub_2_AWS_via_FederatedOIDC_forStrapi
-        #mask-aws-account-id: false
-
+        
     - name: Fill in the new image ID in the Amazon ECS task definition
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
