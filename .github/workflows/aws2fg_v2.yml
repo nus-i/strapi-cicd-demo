@@ -52,11 +52,11 @@ jobs:
         MEMORY=8
         CPU=512
         # Update the task definition with the new Docker image and taskdef json
-        TASK_DEF=$( `cat ${{ env.ECS_TASK_DEFINITION }}` | jq )
-        echo "TASK_DEF" >> $GITHUB_OUTPUT
+        #TASK_DEF=$( ${{ env.ECS_TASK_DEFINITION }} | jq )
+        #echo "TASK_DEF" >> $GITHUB_OUTPUT
         
         # Update the Fargate service with the new task definition
-        aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --task-definition $TASK_DEF
+        aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --task-definition `${{ env.ECS_TASK_DEFINITION }} | jq`
         
         # Wait for the service to be stable
         aws ecs wait services-stable --cluster $CLUSTER_NAME --services $SERVICE_NAME
