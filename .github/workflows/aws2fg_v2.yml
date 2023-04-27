@@ -6,7 +6,7 @@ on:
       - dockerhub
       
 env:
-  ECS_TASK_DEFINITION: .aws/dhtaskdef.json
+  ECS_TASK_DEFINITION: .aws/dh_taskdef.json
   CONTAINER_NAME: strapi-app
 
 jobs:
@@ -35,7 +35,7 @@ jobs:
         AWS_REGION: us-east-1
         AWS_ACCESS_KEY_ID: ${{ secrets.ADAMAWSCLI_ID }} 
         AWS_SECRET_ACCESS_KEY: ${{ secrets.ADAMAWSCLI_KEY }}
-        ECS_TASK_DEFINITION: .aws/dhtaskdef.json
+        ECS_TASK_DEFINITION: .aws/dh_taskdef.json
         CONTAINER_NAME: strapi-app
         
       run: |
