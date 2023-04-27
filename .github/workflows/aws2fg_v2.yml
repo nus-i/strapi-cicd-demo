@@ -30,7 +30,7 @@ jobs:
         push: true
         tags: adamsia/test-strapi:latest
 
-    - name: Deploy to AWS Fargate
+    - name: Deploy to AWS Fargate using json
       env:
         AWS_REGION: us-east-1
         AWS_ACCESS_KEY_ID: ${{ secrets.ADAMAWSCLI_ID }} 
