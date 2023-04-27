@@ -38,11 +38,12 @@ jobs:
         tags: adamsia/test-strapi:latest
 
     - name: configure aws credentials
-      uses: aws-actions/configure-aws-credentials@v1.7.0
+      uses: aws-actions/configure-aws-credentials@v2
       with:
-        role-to-assume: arn:aws:iam::806292820880:role/GitHubAction-AssumeRoleWithActionLDR
         aws-region: ${{ env.AWS_REGION }}
+        role-to-assume: arn:aws:iam::806292820880:role/GitHubAction-AssumeRoleWithActionLDR
         role-session-name: GitHub_2_AWS_via_FederatedOIDC_forStrapi
+        #mask-aws-account-id: false
 
     - name: Fill in the new image ID in the Amazon ECS task definition
       uses: aws-actions/amazon-ecs-render-task-definition@v1
