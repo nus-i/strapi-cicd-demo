@@ -34,7 +34,10 @@ jobs:
       env:
         AWS_REGION: us-east-1
         AWS_ACCESS_KEY_ID: ${{ secrets.ADAMAWSCLI_ID }} 
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.ADAMAWSCLI_KEY }} 
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.ADAMAWSCLI_KEY }}
+        ECS_TASK_DEFINITION: .aws/dhtaskdef.json
+        CONTAINER_NAME: strapi-app
+        
       run: |
         # Install AWS CLI
         curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
