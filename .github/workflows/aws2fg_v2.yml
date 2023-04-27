@@ -35,7 +35,7 @@ jobs:
         AWS_REGION: us-east-1
         AWS_ACCESS_KEY_ID: ${{ secrets.ADAMAWSCLI_ID }} 
         AWS_SECRET_ACCESS_KEY: ${{ secrets.ADAMAWSCLI_KEY }}
-        ECS_TASK_DEFINITION: .aws/dh_taskdef.json
+        ECS_TASK_DEFINITION: aws/dh_taskdef.json
         CONTAINER_NAME: strapi-app
         
       run: |
@@ -52,11 +52,11 @@ jobs:
         MEMORY=8
         CPU=512
         # Update the task definition with the new Docker image and taskdef json
-        #TASK_DEF=$( ${{ env.ECS_TASK_DEFINITION }} | jq )
-        #echo "TASK_DEF" >> $GITHUB_OUTPUT
+        TASK_DEF=$( ${{ env.ECS_TASK_DEFINITION }} | jq )
+        echo "TASK_DEF" >> $GITHUB_OUTPUT
         
         # Update the Fargate service with the new task definition
-        aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --task-definition `${{ env.ECS_TASK_DEFINITION }} | jq`
+        aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --task-definition $TASK_DEF
         
         # Wait for the service to be stable
         aws ecs wait services-stable --cluster $CLUSTER_NAME --services $SERVICE_NAME
