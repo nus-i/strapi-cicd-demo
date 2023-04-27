@@ -41,7 +41,7 @@ jobs:
       uses: aws-actions/configure-aws-credentials@v2
       with:
         aws-region: ${{ env.AWS_REGION }}
-        role-to-assume: arn:aws:iam::806292820880:role/GitHubAction-AssumeRoleWithActionLDR
+        role-to-assume: arn:aws:iam::806292820880:role/EC2_Role
         role-session-name: GitHub_2_AWS_via_FederatedOIDC_forStrapi
         #mask-aws-account-id: false
 
