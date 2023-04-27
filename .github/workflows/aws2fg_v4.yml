@@ -1,0 +1,60 @@
+name: Push to AWS Fargate v2
+
+on:
+  push:
+    branches:
+      - dockerhub
+      
+env:
+  CONTAINER_NAME: strapi-app
+  AWS_REGION: us-east-1
+  AWS_ACCESS_KEY_ID: ${{ secrets.ADAMAWSCLI_ID }} 
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.ADAMAWSCLI_KEY }}
+  ECS_TASK_DEFINITION: .aws/dhtaskdef.json
+  TASK_FAMILY: fg-ldr-demo-task
+  CLUSTER_NAME: FG-LDR-DEMO
+  SERVICE_NAME: fg-ldr-demo-svc
+  IMAGE: test-strapi:latest
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.ADAMDOCKHERHUB_USERNAME }} 
+        password: ${{ secrets.ADAMDOCKERHUB_PASSWORD }} 
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: adamsia/test-strapi:latest
+
+    - name: configure aws credentials
+      uses: aws-actions/configure-aws-credentials@v1.7.0
+      with:
+        role-to-assume: <arn:aws:iam::806292820880:oidc-provider/token.actions.GitHubusercontent.com>
+        aws-region: ${{ env.AWS_REGION }}
+        role-session-name: GitHub_2_AWS_via_FederatedOIDC_forStrapi
+
+    - name: Fill in the new image ID in the Amazon ECS task definition
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: ${{ env.ECS_TASK_DEFINITION }}
+        container-name: ${{ env.CONTAINER_NAME }}
+        image: ${{ steps.build-image.outputs.image }}
+
+    - name: Deploy Amazon ECS task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        service: ${{ env.ECS_SERVICE }}
+        cluster: ${{ env.ECS_CLUSTER }}
+        wait-for-service-stability: true
