@@ -15,6 +15,10 @@ env:
   CLUSTER_NAME: FG-LDR-DEMO
   SERVICE_NAME: fg-ldr-demo-svc
   IMAGE: test-strapi:latest
+  
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
 
 jobs:
   build-and-deploy:
