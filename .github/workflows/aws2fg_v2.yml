@@ -52,8 +52,7 @@ jobs:
         MEMORY=8
         CPU=512
         # Update the task definition with the new Docker image and taskdef json
-        TASK_DEF=$( `cat ${{ env.ECS_TASK_DEFINITION }}` | jq 
-        '.taskDefinition.taskDefinitionArn' -r)
+        TASK_DEF=$( `cat ${{ env.ECS_TASK_DEFINITION }}` | jq )
         echo "TASK_DEF" >> $GITHUB_OUTPUT
         
         # Update the Fargate service with the new task definition
