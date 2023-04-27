@@ -25,21 +25,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    #- name: Checkout code
-    #  uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-    #- name: Log in to Docker Hub
-    #  uses: docker/login-action@v1
-    #  with:
-    #    username: ${{ secrets.ADAMDOCKHERHUB_USERNAME }} 
-    #    password: ${{ secrets.ADAMDOCKERHUB_PASSWORD }} 
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.ADAMDOCKHERHUB_USERNAME }} 
+        password: ${{ secrets.ADAMDOCKERHUB_PASSWORD }} 
 
-    #- name: Build and push Docker image
-    #  uses: docker/build-push-action@v2
-    #  with:
-    #    context: .
-    #    push: true
-    #    tags: adamsia/test-strapi:latest
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: adamsia/test-strapi:latest
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -53,7 +53,7 @@ jobs:
       with:
         task-definition: ${{ env.ECS_TASK_DEFINITION }}
         container-name: ${{ env.CONTAINER_NAME }}
-        image: ${{ steps.build-image.outputs.image }}
+        image: ${{ env.IMAGE }}
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
