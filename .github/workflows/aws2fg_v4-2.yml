@@ -13,7 +13,7 @@ env:
   ECS_TASK_DEFINITION: .aws/dh_taskdef2.json
   TASK_FAMILY: FG-LDR-DH-TASK
   CLUSTER_NAME: FG-LDR-DEMO
-  SERVICE_NAME: FG-LDR-DEMO-SVC2
+  SERVICE_NAME: FG-LDR-DEMO-SVC
   IMAGE: adamsia/test-strapi:latest
   
 permissions:
