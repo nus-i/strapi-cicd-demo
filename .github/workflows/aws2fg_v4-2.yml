@@ -11,7 +11,7 @@ env:
   #AWS_ACCESS_KEY_ID: ${{ secrets.ADAMAWSCLI_ID }} 
   #AWS_SECRET_ACCESS_KEY: ${{ secrets.ADAMAWSCLI_KEY }}
   ECS_TASK_DEFINITION: .aws/dh_taskdef.json
-  TASK_FAMILY: fg-ldr-demo-task
+  TASK_FAMILY: FG-LDR-DH-TASK
   CLUSTER_NAME: FG-LDR-DEMO
   SERVICE_NAME: FG-LDR-DEMO-SVC
   IMAGE: adamsia/test-strapi:latest
