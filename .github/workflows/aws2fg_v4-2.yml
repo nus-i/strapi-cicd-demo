@@ -10,10 +10,10 @@ env:
   AWS_REGION: us-east-1
   #AWS_ACCESS_KEY_ID: ${{ secrets.ADAMAWSCLI_ID }} 
   #AWS_SECRET_ACCESS_KEY: ${{ secrets.ADAMAWSCLI_KEY }}
-  ECS_TASK_DEFINITION: .aws/dh_taskdef.json
+  ECS_TASK_DEFINITION: .aws/dh_taskdef2.json
   TASK_FAMILY: FG-LDR-DH-TASK
   CLUSTER_NAME: FG-LDR-DEMO
-  SERVICE_NAME: FG-LDR-DEMO-SVC
+  SERVICE_NAME: FG-LDR-DEMO-SVC2
   IMAGE: adamsia/test-strapi:latest
   
 permissions:
@@ -25,21 +25,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+#    - name: Checkout code
+#      uses: actions/checkout@v2
 
-    - name: Log in to Docker Hub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.ADAMDOCKHERHUB_USERNAME }} 
-        password: ${{ secrets.ADAMDOCKERHUB_PASSWORD }} 
+#    - name: Log in to Docker Hub
+#      uses: docker/login-action@v1
+#      with:
+#        username: ${{ secrets.ADAMDOCKHERHUB_USERNAME }} 
+#        password: ${{ secrets.ADAMDOCKERHUB_PASSWORD }} 
 
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v2
-      with:
-        context: .
-        push: true
-        tags: adamsia/test-strapi:latest
+#    - name: Build and push Docker image
+#      uses: docker/build-push-action@v2
+#      with:
+#        context: .
+#        push: true
+#        tags: adamsia/test-strapi:latest
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
