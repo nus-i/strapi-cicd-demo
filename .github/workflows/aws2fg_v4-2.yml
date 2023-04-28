@@ -1,4 +1,4 @@
-name: Push to AWS Fargate v2
+name: Push to AWS Fargate v2-2
 
 on:
   push:
